@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | CarbonAware{% endblock %}
+
+{% block content %}
+<div class="dashboard-hero fade-in">
+    <h1>Your Impact Dashboard</h1>
+    <div class="score-card">
+        <h2>Total Footprint</h2>
+        <div class="score">{{ total_emission }}</div>
+        <p>kg CO2</p>
+    </div>
+</div>
+
+<div class="history-section fade-in delay-1">
+    <h3>Recent Activity</h3>
+    {% if logs %}
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Category</th>
+                        <th>Activity</th>
+                        <th>Impact (kg CO2)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in logs %}
+                    <tr>
+                        <td>{{ log.timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td class="category-pill cat-{{ log.category }}">{{ log.category.capitalize() }}</td>
+                        <td>{{ log.description }}</td>
+                        <td class="emission-val">{{ log.carbon_emission }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <p>You haven't logged any activities yet.</p>
+            <a href="/log" class="btn">Log First Activity</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

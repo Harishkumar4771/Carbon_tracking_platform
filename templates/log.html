@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Log Activity | CarbonAware{% endblock %}
+
+{% block content %}
+<div class="form-container fade-in">
+    <h2>Log New Activity</h2>
+    <p>Help us calculate your footprint by adding a new entry.</p>
+
+    <form action="/log" method="POST" class="activity-form">
+        <div class="form-group">
+            <label for="category">Category</label>
+            <select name="category" id="category" required onchange="updateSubcategories()">
+                <option value="" disabled selected>Select Category</option>
+                <option value="transportation">Transportation</option>
+                <option value="food">Food</option>
+                <option value="energy">Energy</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="subcategory">Activity Type</label>
+            <select name="subcategory" id="subcategory" required>
+                <option value="" disabled selected>Select Category First</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="value" id="value-label">Value (e.g. km/kWh/meals)</label>
+            <input type="number" step="0.1" name="value" id="value" required min="0">
+        </div>
+
+        <div class="form-group">
+            <label for="description">Optional Description</label>
+            <input type="text" name="description" id="description" placeholder="e.g. Commute to work">
+        </div>
+
+        <button type="submit" class="btn primary-btn">Log Activity</button>
+    </form>
+</div>
+
+<script>
+    const subcategoryData = {
+        "transportation": [
+            {val: "car", text: "Car Driving"},
+            {val: "bus", text: "Bus"},
+            {val: "train", text: "Train"},
+            {val: "flight", text: "Flight"},
+            {val: "bike", text: "Bicycle"},
+            {val: "walk", text: "Walking"}
+        ],
+        "food": [
+            {val: "beef", text: "Beef Meal"},
+            {val: "chicken", text: "Chicken Meal"},
+            {val: "vegetarian", text: "Vegetarian Meal"},
+            {val: "vegan", text: "Vegan Meal"}
+        ],
+        "energy": [
+            {val: "electricity", text: "Electricity usage (kWh)"},
+            {val: "natural_gas", text: "Natural Gas (kWh)"}
+        ]
+    };
+
+    function updateSubcategories() {
+        const category = document.getElementById("category").value;
+        const subcategorySelect = document.getElementById("subcategory");
+        const valueLabel = document.getElementById("value-label");
+
+        subcategorySelect.innerHTML = "";
+        
+        if (category && subcategoryData[category]) {
+            subcategoryData[category].forEach(item => {
+                let option = document.createElement("option");
+                option.value = item.val;
+                option.text = item.text;
+                subcategorySelect.appendChild(option);
+            });
+            
+            if (category === "transportation") valueLabel.innerText = "Distance (km)";
+            else if (category === "food") valueLabel.innerText = "Number of meals or kg";
+            else if (category === "energy") valueLabel.innerText = "Energy consumed (kWh)";
+        }
+    }
+</script>
+{% endblock %}
