@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="background-blobs">
@@ -19,9 +20,18 @@
         <header>
             <div class="logo">🌿 CarbonAware</div>
             <nav>
-                <a href="/">Dashboard</a>
-                <a href="/log">Log Activity</a>
-                <a href="/assistant">Smart Assistant 🤖</a>
+                {% if user %}
+                    <a href="/">Dashboard</a>
+                    <a href="/log">Log Activity</a>
+                    <a href="/assistant">Smart Assistant 🤖</a>
+                    <div class="user-menu">
+                        <span class="username">{{ user.username }}</span>
+                        <a href="/logout" class="btn logout-btn">Logout</a>
+                    </div>
+                {% else %}
+                    <a href="/login">Login</a>
+                    <a href="/register">Register</a>
+                {% endif %}
             </nav>
         </header>
 
@@ -35,5 +45,6 @@
         </footer>
     </div>
     <script src="/static/js/main.js"></script>
+    {% block scripts %}{% endblock %}
 </body>
 </html>

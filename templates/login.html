@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Login | CarbonAware{% endblock %}
+
+{% block content %}
+<div class="auth-container fade-in">
+    <h2>Welcome Back!</h2>
+    <p>Log in to track your carbon footprint.</p>
+
+    {% if request.query_params.get("error") %}
+        <div class="alert alert-error">{{ request.query_params.get("error") }}</div>
+    {% endif %}
+    {% if request.query_params.get("msg") %}
+        <div class="alert alert-success">{{ request.query_params.get("msg") }}</div>
+    {% endif %}
+
+    <form action="/login" method="POST" class="activity-form">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" required>
+        </div>
+
+        <button type="submit" class="btn primary-btn w-100">Log In</button>
+    </form>
+    
+    <p class="auth-switch">Don't have an account? <a href="/register">Register here</a></p>
+</div>
+{% endblock %}
