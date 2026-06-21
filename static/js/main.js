@@ -1,5 +1,5 @@
 // JavaScript for general UI interactions
-console.log("CarbonAware loaded.");
+// Initialization code can go here
 
 // Additional micro-interactions could be added here
 document.addEventListener("DOMContentLoaded", () => {
