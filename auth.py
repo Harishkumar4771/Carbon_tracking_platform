@@ -3,7 +3,9 @@ from jose import JWTError, jwt
 from passlib.context import CryptContext
 from fastapi import Request, Depends, HTTPException
 
-SECRET_KEY = "super_secret_dev_key" # In production, use env var
+import os
+
+SECRET_KEY = os.getenv("SECRET_KEY", "super_secret_dev_key") # In production, use env var
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 # 1 day
 

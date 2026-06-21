@@ -2,6 +2,9 @@
 
 A smart, dynamic web application designed to help individuals understand, track, and reduce their carbon footprint through simple actions and personalized insights.
 
+## Live Demo
+[https://carbon-tracking-platform-264552446639.us-central1.run.app](https://carbon-tracking-platform-264552446639.us-central1.run.app)
+
 ## Features
 - **Dynamic Assistant:** Context-aware rule-based recommendations based on your daily activities.
 - **Activity Logging:** Track emissions from transportation, food, and energy usage.

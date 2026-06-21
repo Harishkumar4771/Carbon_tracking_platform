@@ -37,7 +37,7 @@
         </div>
         
         <div class="chart-card">
-            <canvas id="categoryChart"></canvas>
+            <canvas id="categoryChart" data-chart='{{ chart_data_pie | safe }}'></canvas>
         </div>
     </div>
 </div>
@@ -79,8 +79,9 @@
 {% block scripts %}
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    const ctx = document.getElementById('categoryChart').getContext('2d');
-    const data = {{ chart_data_pie | safe }};
+    const canvasElement = document.getElementById('categoryChart');
+    const ctx = canvasElement.getContext('2d');
+    const data = JSON.parse(canvasElement.getAttribute('data-chart') || "[]");
     
     // Only render chart if there is data
     if (data.reduce((a,b) => a+b, 0) > 0) {
