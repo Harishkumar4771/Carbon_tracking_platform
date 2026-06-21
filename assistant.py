@@ -24,10 +24,15 @@ class SmartAssistant:
 
     def calculate_emission(self, category: str, subcategory: str, value: float) -> float:
         """Calculates carbon emission based on category and value."""
+        if value is None:
+            return 0.0
         try:
+            val = float(value)
+            if val < 0:
+                return 0.0
             factor = self.emission_factors[category][subcategory]
-            return round(factor * value, 2)
-        except KeyError:
+            return round(factor * val, 2)
+        except (KeyError, ValueError, TypeError):
             return 0.0
 
     def generate_insights(self, logs: list) -> list:

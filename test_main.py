@@ -16,6 +16,22 @@ class TestAssistantEngine(unittest.TestCase):
         emission = self.assistant.calculate_emission("transportation", "spaceship", 100.0)
         self.assertEqual(emission, 0.0)
 
+    def test_calculate_emission_zero_value(self):
+        emission = self.assistant.calculate_emission("food", "beef", 0.0)
+        self.assertEqual(emission, 0.0)
+
+    def test_calculate_emission_negative_value(self):
+        emission = self.assistant.calculate_emission("energy", "electricity", -50.0)
+        self.assertEqual(emission, 0.0)
+
+    def test_calculate_emission_null_value(self):
+        emission = self.assistant.calculate_emission("transportation", "car", None)
+        self.assertEqual(emission, 0.0)
+
+    def test_calculate_emission_malformed_string(self):
+        emission = self.assistant.calculate_emission("food", "vegan", "not_a_number")
+        self.assertEqual(emission, 0.0)
+
     def test_generate_insights_empty_logs(self):
         insights = self.assistant.generate_insights([])
         self.assertEqual(len(insights), 1)
